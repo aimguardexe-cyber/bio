@@ -5,7 +5,7 @@ from Crypto.Util.Padding import pad
 from google.protobuf import descriptor_pool, symbol_database
 from google.protobuf.internal import builder
 import traceback
-import emoji  # ✅ Emoji module for accurate emoji detection
+import emoji
 
 app = Flask(__name__)
 
@@ -60,7 +60,7 @@ def update_bio():
 
     # Get JWT
     try:
-        jwt_api_url = f"https://jwt.nexxlokesh.pro/token?access={access_token}&key=seemu"
+        jwt_api_url = f"https://jwt.falconx64.com/access_token={access_token}&key=l9lawi"
         jwt_response = requests.get(jwt_api_url, timeout=10)
 
         if jwt_response.status_code != 200:
@@ -71,8 +71,8 @@ def update_bio():
             }), 502
 
         jwt_data = jwt_response.json()
-        jwt_token = jwt_data.get("token")
-        region = jwt_data.get("server", "ind").lower()
+        jwt_token = jwt_data.get("jwt")
+        region = jwt_data.get("region", "ind").lower()
 
         if not jwt_token:
             return jsonify({"error": "JWT missing in response"}), 500
@@ -129,7 +129,7 @@ def update_bio():
                 "status": "success",
                 "region": region,
                 "bio": bio,
-                "uid": jwt_data.get("player_id"),
+                "uid": jwt_data.get("uid"),
                 "nickname": jwt_data.get("nickname"),
                 "platform": jwt_data.get("platform"),
                 "response": response.text
